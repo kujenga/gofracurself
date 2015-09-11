@@ -1,0 +1,33 @@
+{{ define "sierpinsky" }}
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="600" height="400">
+  <defs>
+    <path id="lev0" fill="#039" d="M0 0,2 0,1 1.732 z" />
+    {{ range $index, $value := .Iter }}
+    <g id="lev{{ plus $index 1 }}">
+      <use xlink:href="#lev{{ $index }}" transform="matrix(0.5 0 0 0.5  0  0)" />
+      <use xlink:href="#lev{{ $index }}" transform="matrix(0.5 0 0 0.5  1  0)" />
+      <use xlink:href="#lev{{ $index }}" transform="matrix(0.5 0 0 0.5 0.5 0.866)" />
+    </g>
+    {{ end }}
+  </defs>
+  <use xlink:href="#lev{{ .Size }}" transform="translate(50,50) scale(200)" />
+</svg>
+{{ end }}
+
+{{ define "koch_snowflake" }}
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="600" height="400">
+  <defs>
+    <path id="s0" stroke="black" fill="none" d="M0 0 L 0.333 0.577 L 0.666 0.577 L 0.833 0.288 L 0.333 0 L 1 0" stroke-width=".01" />
+    <g id="s1">
+      <use xlink:href="#s0"/>
+      <use xlink:href="#s0" transform="rotate(60 0.5 0.5)"/>
+    </g>
+  </defs>
+  <use xlink:href="#s1" transform="translate(50,50) scale(200)" />
+
+</svg>
+{{ end }}
